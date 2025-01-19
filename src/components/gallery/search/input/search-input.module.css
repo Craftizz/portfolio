@@ -1,0 +1,36 @@
+.search__bar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.search__input {
+    width: 100%;
+    font-family: var(--font1);
+    font-size: 1rem;
+    padding: 4px 6px;
+    color: var(--lightColor1);
+    background-color: transparent;
+    border: transparent;
+    border-radius: 8px;
+}
+
+.search__input:focus {
+    outline: none;
+}
+
+.search__buttons {
+    display: flex;
+    flex-direction: row;
+}
+
+.search__button {
+    background-color: var(--lightColor1);
+}
+
+.button__search {
+    color: var(--grayColor1);
+}
+
+.button__reset {
+    color: var(--grayColor3);
+}

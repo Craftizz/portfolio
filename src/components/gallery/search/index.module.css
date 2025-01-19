@@ -1,0 +1,118 @@
+.search {
+    position: fixed;
+    bottom: 0;
+    z-index: 10;
+    background-color: var(--darkColor1);
+    padding: 12px 0;
+    width: 100%;
+}
+
+.search__content {
+    width: 96%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 32px;
+    align-items: last baseline;
+}
+/* 
+.search__label {
+    font-family: var(--font1);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--lightColor2);
+} */
+
+.search__bar {
+    width: 100%;
+    color: var(--lightColor1);
+    background-color: #0b0b0b;
+    border: 1px solid var(--grayColor4);
+    border-radius: 8px;
+}
+
+.search__input {
+    width: 100%;
+    font-family: var(--font1);
+    padding: 4px 6px;
+    color: var(--lightColor1);
+    background-color: transparent;
+    border: transparent;
+    border-radius: 8px;
+}
+
+.search__selection {
+    display: flex;
+    justify-content: right;
+    column-gap: 16px;
+}
+
+.search__tag {
+    display: flex;
+    column-gap: 4px;
+}
+
+.search__label {
+    font-size: 0.7rem;
+    color: var(--grayColor3);
+    border: none;
+    background-color: transparent;
+    transition: color 0.3s ease;
+    cursor: pointer;
+}
+
+.search__label:hover {
+    color: var(--lightColor2);
+}
+
+.search__label--active {
+    color: var(--lightColor1);
+}
+
+.search__separator {
+    font-size: 0.7rem;
+    color: var(--grayColor3);
+}
+
+.search__suggestion {
+    padding: 16px 6px;
+    display: flex;
+    column-gap: 32px;
+}
+
+.suggestion__title {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+.suggestion__tags {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 16px;
+    row-gap: 8px;
+}
+
+.tags {
+    font-family: var(--font1);
+    font-weight: 400;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    border: none;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    background: var(--grayColor1);
+    color: var(--darkColor1);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.tags:hover {
+    transform: scale(1.2);
+}
+
+.search__input:focus, .search__label {
+    outline: none;
+}

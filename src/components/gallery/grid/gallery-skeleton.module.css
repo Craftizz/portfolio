@@ -1,0 +1,102 @@
+.skeleton__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: auto; 
+    gap: 16px; 
+    width: 100%;
+}
+
+.skeleton__card {
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.skeleton__image {
+    border-radius: 3px;
+    aspect-ratio: 16 / 9; 
+    height: 70%;
+    background-size: 200% 200%;
+}
+
+.skeleton__caption {
+    margin: 16px 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    justify-content: flex-start;
+    row-gap: 5px;
+}
+
+.skeleton__project {
+    width: 100px;   
+    height: 0.9rem;
+    border-radius: 1px;
+    overflow: hidden;
+    background-size: 800px 200px;
+}
+
+.skeleton__category {
+    width: 50px;   
+    height: 0.8rem;
+    border-radius: 1px;
+    overflow: hidden;
+    background-size: 800px 200px;
+}
+
+.skeleton__image, 
+.skeleton__project, 
+.skeleton__category {
+    background-image: linear-gradient(90deg, rgba(23, 23, 23, 0) 0%, rgba(23, 23, 23, 1) 100%);
+    background-repeat: no-repeat;
+    animation-name: shimmer;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    -webkit-animation-name: shimmer;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-fill-mode: forwards;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: ease-in-out;
+}
+
+@-webkit-keyframes shimmer {
+    0% {
+        background-position: -400px 0;
+    }
+
+    100% {
+        background-position: 400px 0;
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -400px 0;
+    }
+
+    100% {
+        background-position: 400px 0;
+    }
+}
+
+@media (max-width: 900px) {
+
+    .grid__skeleton {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+
+    .grid__skeleton {
+        grid-template-columns: repeat(1fr, 1fr);
+    }
+}
