@@ -1,5 +1,6 @@
-import { useRef } from "react";
+'use client';
 
+import { useRef } from "react";
 import styles from "./search-input.module.css";
 import SearchIcon from '@mui/icons-material/Search';
 import { IconButton } from '@mui/material';
@@ -55,8 +56,19 @@ export default function SearchInput({ onSearch, onFocusChange, searchParams }: S
       }, 100);
     }
 
+    
+
     return (
       <div className={styles.search__bar}>
+        <div className={styles.search__buttons}>
+          <IconButton
+            className={styles.search__button}
+            onClick={handleSearchButton}
+            color="inherit"
+          >
+            <SearchIcon className={styles.button__search} />
+          </IconButton>
+        </div>
         <input
           ref={inputRef}
           type="text"
@@ -67,15 +79,6 @@ export default function SearchInput({ onSearch, onFocusChange, searchParams }: S
           className={styles.search__input}
           defaultValue={searchParams.get("query")?.toString()}
         />
-        <div className={styles.search__buttons}>
-          <IconButton
-            className={styles.search__button}
-            onClick={handleSearchButton}
-            color="inherit"
-          >
-            <SearchIcon className={styles.button__search} />
-          </IconButton>
-        </div>
       </div>
     );
 }

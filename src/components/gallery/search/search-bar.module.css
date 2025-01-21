@@ -1,0 +1,7 @@
+.search__bar {
+    width: 100%;
+    color: var(--lightColor1);
+    background-color: #0b0b0b;
+    border: 1px solid var(--grayColor4);
+    border-radius: 8px;
+}

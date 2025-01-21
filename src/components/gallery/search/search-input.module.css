@@ -30,7 +30,3 @@
 .button__search {
     color: var(--grayColor1);
 }
-
-.button__reset {
-    color: var(--grayColor3);
-}

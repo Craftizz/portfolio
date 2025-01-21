@@ -26,23 +26,25 @@ export async function getNextFrames(
 }
 
 export async function getSuggestions() {
+
   try {
+
+
     const response = await fetch(
-      `/api/search?`
+      `http://localhost:3000/api/search`
     );
 
     if (!response.ok) {
       throw new Error(`Failed to gather search suggestions: ${response.statusText}`);
     }
 
-    const { tags: tagResults } = await response.json();
-    return tagResults;
-
+    const tags = await response.json();
+    return tags;
 
   } catch (error) {
 
     console.error(`Failed to gather search suggestions: ${error}`)
 
-    return { tags: [] };
+    return [];
   }
 }

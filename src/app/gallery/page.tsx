@@ -3,7 +3,7 @@ import Header from "@/components/layout/header/Header";
 import styles from "./page.module.css";
 
 import { ReactLenis } from "lenis/react";
-import GallerySearch from "@/components/gallery/search";
+import GallerySearch from "@/components/gallery/search/SearchLayout";
 import GalleryGrid from "@/components/gallery/grid";
 
 export default async function Page(props: {

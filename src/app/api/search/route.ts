@@ -21,19 +21,15 @@ async function getRandomTags() {
     return result[0]?.random_tags ?? [];
 }
 
-
-
 export async function GET(request: NextRequest) { 
 
     console.log("Requesting Tags...");
 
-    const searchParams = request.nextUrl.searchParams;
-
-    const tagResult = await getRandomTags();
+    const tags = await getRandomTags();
     
     return new Response(
         JSON.stringify({
-          tags: tagResult,
+          tags: tags,
         }),
         {
           headers: { "Content-Type": "application/json" },

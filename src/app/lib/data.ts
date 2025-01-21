@@ -11,7 +11,7 @@ const pool = new Pool({
 
 interface Database {
   gallery: {
-    id: string; // Assuming `id` is a string (e.g., UUID)
+    id: string;
     title: string;
     category: string;
     base64: string;
