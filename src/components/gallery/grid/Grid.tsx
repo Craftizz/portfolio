@@ -7,9 +7,9 @@ import { generateSeed } from "@/utils/random";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Footer from "@/components/layout/footer/Footer";
 import GalleryCard from "./card/Card";
-import styles from "./index.module.css";
+import styles from "./grid.module.css";
 import GalleryInfo from "./info/GalleryInfo";
-import GallerySkeleton from "./GallerySkeleton";
+import GallerySkeleton from "./GridSkeleton";
 
 const seed = generateSeed();
 const limit = 12;

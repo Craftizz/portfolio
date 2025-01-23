@@ -2,7 +2,7 @@
 import { Suspense } from "react";
 import styles from "./search-layout.module.css";
 import SearchBar from './SearchBar';
-import SearchSuggestionProvider from "./suggestion/SuggestionProvider";
+import SearchSuggestionContainer from "./suggestion/SuggestionContainer";
 import SuggestionSkeleton from "./suggestion/SuggestionSkeleton";
 
 export default function GallerySearch() {
@@ -15,7 +15,7 @@ export default function GallerySearch() {
               <p className={styles.suggestion__title}>Keywords:</p>
               <div className={styles.suggestion__tags}>
                 <Suspense fallback={<SuggestionSkeleton />}>
-                  <SearchSuggestionProvider />
+                  <SearchSuggestionContainer />
                 </Suspense>
               </div>
             </div>

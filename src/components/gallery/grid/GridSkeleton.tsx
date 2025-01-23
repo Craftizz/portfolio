@@ -1,4 +1,4 @@
-import styles from "./gallery-skeleton.module.css";
+import styles from "./grid-skeleton.module.css";
 
 export default function GallerySkeleton() {
     return (
