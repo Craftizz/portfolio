@@ -1,1 +1,0 @@
-Repository of [`johnlexter.com/gallery`](https://johnlexter.com/gallery)
