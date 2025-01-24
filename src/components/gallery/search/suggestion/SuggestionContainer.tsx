@@ -1,15 +1,11 @@
 import db from "@/app/lib/data";
 import { sql } from "kysely";
 import SearchSuggestion from "./Suggestion";
+import SuggestionSkeleton from "./SuggestionSkeleton";
 
 export default async function SearchSuggestionContainer() {
 
     const tags: string[] = await getSuggestions();
-
-    if (!tags || tags.length === 0) {
-
-        return (<p>An error as occured.</p>)
-    }
 
     return <SearchSuggestion tags={tags} />;
 }

@@ -5,10 +5,13 @@ import GalleryCard from "../grid/card/Card";
 import Footer from "@/components/layout/footer/Footer";
 import { generateSeed } from "@/utils/random";
 import { getNextFrames } from "@/lib/queries";
+import { useError } from "@/context/ErrorContext";
 
 export default function GalleryNoResult() {
 
     const [frames, setFrames] = useState<Frame[]>([]);
+    const { error, setError } = useError();
+
     const seed = generateSeed();
 
     async function getFrames() {
@@ -19,7 +22,7 @@ export default function GalleryNoResult() {
 
             if (!result) {
 
-              alert("An error occurred with requesting the frames.");
+              setError("An error occurred with requesting the frames.");
               return;
             } 
 
@@ -28,7 +31,7 @@ export default function GalleryNoResult() {
 
           } catch (error) {
             
-            alert("An error occured in requesting images.");
+            setError("An error occurred with requesting the frames.");
           }
     }
 

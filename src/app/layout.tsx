@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from 'next/font/local'
 import GsapProvider from '@/components/GsapProvider';
 import "./globals.css";
+import { ErrorProvider } from "@/context/ErrorContext";
 
 export const metadata: Metadata = {
   title: "John Lexter Laguinday | Cinematographer",
@@ -60,9 +61,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <GsapProvider>
-          {children}
-        </GsapProvider>
+        <ErrorProvider>
+          <GsapProvider>
+            {children}
+          </GsapProvider>
+        </ErrorProvider>
       </body>
     </html>
   );

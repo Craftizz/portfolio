@@ -11,6 +11,8 @@ import styles from "./grid.module.css";
 import GalleryInfo from "./info/GalleryInfo";
 import GallerySkeleton from "./GridSkeleton";
 import GalleryNoResult from "./GridNotFound";
+import GridSkeleton from "./GridSkeleton";
+import { useError } from "@/context/ErrorContext";
 
 const seed = generateSeed();
 const limit = 12;
@@ -24,6 +26,7 @@ export default function GalleryGrid({
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const totalFrames = useRef(0);
+  const { error, setError } = useError();
 
   async function getFrames(isFirstQuery : boolean) {
 
@@ -39,7 +42,7 @@ export default function GalleryGrid({
 
       if (!result) {
 
-        alert("An error occurred with requesting the frames.");
+        setError("An error occurred with requesting the frames.");
         return;
       } 
 
@@ -52,7 +55,7 @@ export default function GalleryGrid({
       
     } catch (error) {
 
-      alert("An error occurred with requesting the frames.");
+      setError("An error occurred with requesting the frames.");
     }
   }
 
@@ -64,6 +67,11 @@ export default function GalleryGrid({
     getFrames(true);
 
   }, [searchQuery])
+
+  if (error) {
+
+    return <GridSkeleton />;
+  }
 
   if (frames.length === 0 && searchQuery && !hasMore) {
 

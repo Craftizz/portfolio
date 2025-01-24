@@ -5,6 +5,8 @@ import styles from "./page.module.css";
 import { ReactLenis } from "lenis/react";
 import GallerySearch from "@/components/gallery/search/SearchLayout";
 import GalleryGrid from "@/components/gallery/grid/Grid";
+import ErrorAlert from "@/components/layout/error/ErrorAlert";
+import { ErrorProvider } from "@/context/ErrorContext";
 
 export default async function Page(props: {
   searchParams?: Promise<{ query?: string }>;
@@ -16,10 +18,11 @@ export default async function Page(props: {
   return (
     <ReactLenis root>
       <Header />
-      <div className={styles.gallery}>
-        <GalleryGrid searchQuery={query} />
-      </div>
-      <GallerySearch />
+      <ErrorAlert />
+        <div className={styles.gallery}>
+          <GalleryGrid searchQuery={query} />
+        </div>
+        <GallerySearch />
     </ReactLenis>
   );
 }
