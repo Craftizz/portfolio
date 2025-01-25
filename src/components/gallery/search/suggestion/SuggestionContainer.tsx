@@ -1,7 +1,6 @@
 import db from "@/app/lib/data";
 import { sql } from "kysely";
 import SearchSuggestion from "./Suggestion";
-import SuggestionSkeleton from "./SuggestionSkeleton";
 
 export default async function SearchSuggestionContainer() {
 
@@ -13,7 +12,7 @@ export default async function SearchSuggestionContainer() {
 async function getSuggestions(): Promise<string[]> {
     try {
 
-        const limit = 10;
+        const limit = 15;
 
         const result = await db
         .selectFrom('gallery')

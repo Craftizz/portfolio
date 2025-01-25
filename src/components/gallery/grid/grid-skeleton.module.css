@@ -89,14 +89,14 @@
 
 @media (max-width: 900px) {
 
-    .grid__skeleton {
+    .skeleton__grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (max-width: 600px) {
 
-    .grid__skeleton {
-        grid-template-columns: repeat(1fr, 1fr);
+    .skeleton__grid {
+        grid-template-columns: 1fr;
     }
 }

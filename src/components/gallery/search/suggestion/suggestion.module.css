@@ -1,26 +1,21 @@
 .tags {
+    padding: 3px 6px;
+    color: var(--darkColor1);
+    background-color: var(--grayColor1);
+    border-radius: 5px;
     font-family: var(--font1);
     font-weight: 400;
-    font-size: 0.6rem;
-    text-transform: uppercase;
+    font-size: 0.9rem;
+    text-transform: capitalize;
     border: none;
-    padding: 0.1rem 0.4rem;
-    border-radius: 3px;
-    background: var(--grayColor1);
-    color: var(--darkColor1);
+    cursor: grab;
+    user-select: none;
     transition: transform 0.3s ease;
     cursor: pointer;
 }
 
-.suggestion__skeleton {
-    width: 80px;
-    padding: 0.1rem 0.4rem;
-    border-radius: 3px;
-    background: var(--grayColor1);
-}
-
 .tags:hover {
-    transform: scale(1.2);
+    transform: scale(1.05);
 }
 
 .search__label {

@@ -1,9 +1,9 @@
 .error {
-    padding: 3vh 2vw;
-    position: fixed;
-    top: 4vh;
-    width: 100%;
     z-index: 1000;
+    position: fixed;
+    bottom: 0;
+    padding: 3vh 2vw;
+    width: 100%;
     background: transparent;
     display: flex;
     flex-direction: column;

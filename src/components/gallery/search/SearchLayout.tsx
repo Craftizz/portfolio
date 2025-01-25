@@ -1,26 +1,22 @@
-
 import { Suspense } from "react";
 import styles from "./search-layout.module.css";
-import SearchBar from './SearchBar';
+import SearchBar from "./SearchBar";
 import SearchSuggestionContainer from "./suggestion/SuggestionContainer";
 import SuggestionSkeleton from "./suggestion/SuggestionSkeleton";
 
 export default function GallerySearch() {
-
-    return (
-      <div className={styles.search}>
-        <div className={styles.search__content}>
-          <SearchBar>
-            <div className={styles.search__suggestion}>
-              <p className={styles.suggestion__title}>Keywords:</p>
-              <div className={styles.suggestion__tags}>
-                <Suspense fallback={<SuggestionSkeleton />}>
-                  <SearchSuggestionContainer />
-                </Suspense>
-              </div>
-            </div>
-          </SearchBar>
+  return (
+    <div className={styles.search}>
+      <div className={styles.search__content}>
+        <SearchBar>
+          <div></div>
+        </SearchBar>
+        <div className={styles.suggestion__tags}>
+          <Suspense fallback={<SuggestionSkeleton />}>
+            <SearchSuggestionContainer />
+          </Suspense>
         </div>
       </div>
-    );
+    </div>
+  );
 }

@@ -20,6 +20,13 @@ export default function SearchInput({ onSearch, onFocusChange, searchParams }: S
         if (event.key === 'Enter' 
             || event.key === 'NumpadEnter') {
 
+            const value = (event.target as HTMLInputElement).value;
+
+            if (value === searchParams.get("query")?.toString()) {
+
+              return;
+            }
+
             onSearch("query", (event.target as HTMLInputElement).value);
         }
     }
