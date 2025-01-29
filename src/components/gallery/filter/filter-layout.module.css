@@ -1,0 +1,6 @@
+.filter__content {
+    width: 96%;
+    margin: 2vh auto;
+    display: flex;
+    column-gap: 6px;
+}

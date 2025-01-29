@@ -7,13 +7,14 @@
     width: 100%;
 }
 
-.card__link {
+.card {
     position: relative;
     height: 70%;
 }
 
-.card__link:hover .card__image {
-    filter: brightness(0.6) blur(1px);
+.card:hover .card__image {
+    filter: brightness(1.2);
+    transform: scale(1.02);
 }
 
 .card__image {
@@ -26,20 +27,8 @@
     transition: transform 0.3s ease, filter 0.3s ease;
 }
 
-.card__overlay {
-    visibility: hidden;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    margin: 8px 8px;
-    padding: 3px 6px;
-    font-size: 0.5rem;
-    text-transform: uppercase;
-    color: var(--darkColor1);
-    background-color: var(--lightColor1);
-    border-radius: 5px;
-}
 
-.card__link:hover .card__overlay {
-    visibility: visible;
-  }
+.card__info {
+    display: flex;
+    justify-content: space-between;
+}

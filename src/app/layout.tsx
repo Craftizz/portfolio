@@ -1,12 +1,21 @@
 import type { Metadata } from "next";
 import localFont from 'next/font/local'
 import GsapProvider from '@/components/GsapProvider';
-import "./globals.css";
 import { ErrorProvider } from "@/context/ErrorContext";
+import type { Viewport } from 'next'
+
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "John Lexter Laguinday | Cinematographer",
   description: "A Cinematographer based in Manila, PH",
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 const neueMontreal = localFont({

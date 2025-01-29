@@ -5,6 +5,7 @@ import { ReactLenis } from "lenis/react";
 import GallerySearch from "@/components/gallery/search/SearchLayout";
 import GalleryGrid from "@/components/gallery/grid/Grid";
 import ErrorAlert from "@/components/layout/error/ErrorAlert";
+import FilterLayout from "@/components/gallery/filter/FilterLayout";
 
 export default async function Page(props: {
   searchParams?: Promise<{ query?: string }>;
@@ -16,10 +17,12 @@ export default async function Page(props: {
     <ReactLenis root>
       <Header />
       <ErrorAlert />
-      <GallerySearch />
+      <FilterLayout />
+      {/* <GallerySearch /> */}
       <div className={styles.gallery}>
         <GalleryGrid searchQuery={query} />
       </div>
+      <div className={styles.overlay__gradient}></div>
     </ReactLenis>
   );
 }

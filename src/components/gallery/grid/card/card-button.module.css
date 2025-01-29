@@ -1,0 +1,5 @@
+.card__buttons {
+    align-items: center;
+    display: flex;
+    color: var(--grayColor2);
+}

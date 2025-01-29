@@ -1,0 +1,35 @@
+.search__bar {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    border-radius: 8px;
+}
+
+.search__bar:focus-within {
+    outline: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.search__input {
+    width: 250px;
+    font-family: var(--font1);
+    font-size: .875rem;
+    padding-top: .25rem;
+    padding-bottom: .25rem;
+    padding-left: .75rem;
+    padding-right: .75rem;
+    height: 2rem;
+    color: var(--lightColor1);
+    border: transparent;
+    background-color: transparent;
+    outline: transparent;
+    border-radius: 8px;
+}
+
+.search__reset {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.search__bar:focus-within .search__reset {
+    opacity: 1;
+  }
