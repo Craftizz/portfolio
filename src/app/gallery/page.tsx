@@ -3,9 +3,9 @@ import styles from "./page.module.css";
 
 import { ReactLenis } from "lenis/react";
 import GallerySearch from "@/components/gallery/search/SearchLayout";
-import GalleryGrid from "@/components/gallery/grid/Grid";
+import GalleryGrid from "@/feature/gallery/grid/Grid";
 import ErrorAlert from "@/components/layout/error/ErrorAlert";
-import FilterLayout from "@/components/gallery/filter/FilterLayout";
+import FilterLayout from "@/feature/gallery/filter/FilterLayout";
 
 export default async function Page(props: {
   searchParams?: Promise<{ query?: string }>;

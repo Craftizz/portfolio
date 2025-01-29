@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./grid-not-found.module.css";
 import { Frame } from "@/types/frames";
-import GalleryCard from "../grid/card/Card";
+import GalleryCard from "./card/Card";
 import Footer from "@/components/layout/footer/Footer";
 import { generateSeed } from "@/utils/random";
 import { getNextFrames } from "@/lib/queries";
