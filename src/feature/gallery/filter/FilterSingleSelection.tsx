@@ -1,15 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 
 import styles from "./filter-single-selection.module.css";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { validateOrDefault } from "@/utils/validate";
 
 export default function FilterSingleSelection({
+  category,
   options,
 }: {
+  category: string
   options: string[];
 }) {
 
@@ -52,6 +55,16 @@ export default function FilterSingleSelection({
 
     replace(`${pathname}?${params.toString()}`);
   }
+
+  useEffect(() => {
+
+    if (category) {
+
+      const validatedCategory = validateOrDefault(category, options, null);
+      
+      setSelected(validatedCategory);
+    }
+  }, []);
 
   return (
     <div 

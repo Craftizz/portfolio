@@ -5,13 +5,17 @@ import FilterTagsContainer from "./FilterTagsContainer";
 import styles from "./filter-layout.module.css";
 import FilterSingleSelection from "./FilterSingleSelection";
 
-export default function FilterLayout() {
+export default function FilterLayout({ 
+    category 
+} : { 
+    category: string
+}) {
     return(
         <div className={styles.filter__content}>
             <FilterSearchBar />
-            <FilterSingleSelection options={["Short", "Ads"]} />
+            <FilterSingleSelection category={category} options={["Short", "Ads"]} />
             <Suspense>
-                <FilterTagsContainer />
+                <FilterTagsContainer category={category} />
             </Suspense>
         </div>
     )

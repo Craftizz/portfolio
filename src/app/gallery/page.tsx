@@ -14,13 +14,13 @@ export default async function Page({
   
   const filters = await searchParams;
   const query = filters.query || "";
-  const category = filters.category || "";
+  const category = typeof filters.category === 'string' ? filters.category : "";
 
   return (
     <ReactLenis root>
       <Header />
       <ErrorAlert />
-      <FilterLayout />
+      <FilterLayout category={category} />
       <div className={styles.gallery}>
         <GalleryGrid query={query} category={category} />
       </div>

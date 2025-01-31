@@ -2,5 +2,7 @@
     width: 96%;
     margin: 2vh auto;
     display: flex;
-    column-gap: 6px;
+    flex-wrap: wrap;
+    gap: 6px;
+    
 }

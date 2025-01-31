@@ -12,10 +12,14 @@
     height: 70%;
 }
 
-.card:hover .card__image {
+.card__image:hover {
     filter: brightness(1.2);
     transform: scale(1.02);
 }
+
+.card__image:hover ~ .card__image {
+    filter: brightness(0.5);
+  }
 
 .card__image {
     object-fit: cover;

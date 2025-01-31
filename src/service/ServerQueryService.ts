@@ -1,31 +1,39 @@
 import db from "@/app/lib/data";
 import { sql } from "kysely";
 
-export async function getRandomTags(toRequest : number): Promise<string[]> {
-    try {
+export async function getRandomTags(
+  category: string | string[] = "",
+  limit: number = 5,
+): Promise<string[]> {
 
-        const result = await db
-        .selectFrom('gallery')
-        .select([
-            sql`ARRAY(
-            SELECT unnest(tags)
-            FROM gallery
-            ORDER BY random()
-            LIMIT ${toRequest}
-            )`.as('random_tags')
-        ])
+  try {
+
+    let query = db.selectFrom("gallery");
+
+    if (category) {
+
+        query = query.where("category", "=", category);
+    }
+
+    const result = await query
+        .select(db.fn("unnest", ["tags"])
+        .as("random_tags"))
+        .orderBy(sql`random()`)
+        .limit(limit)
         .execute();
 
-        if (!result) {
+    console.log(result);
 
-            return[];
-        }
-
-        return result[0].random_tags as string[];
-
-    } catch (error) {
-
-        console.error(`Failed to gather filter tags: ${error}`);
-        return [];
+    if (!result) {
+      
+        throw new Error("No Suggestion Result");
     }
+
+    return result.map(row => row.random_tags as string);
+    
+  } catch (error) {
+
+    console.error(`Failed to gather filter tags: ${error}`);
+    return [];
+  }
 }

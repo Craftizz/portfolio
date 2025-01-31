@@ -11,6 +11,7 @@ export default function FilterTags({ tags }: { tags: string[] }) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
+  
   const { setError } = useError();
 
   function handleSearch(param: string, value: string) {

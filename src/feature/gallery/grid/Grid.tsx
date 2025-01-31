@@ -22,7 +22,7 @@ export default function GalleryGrid({
   category,
 }: {
   query: string | string[]
-  category: string | string[]
+  category: string
 }) {
   const [frames, setFrames] = useState<Frame[]>([]);
   const [page, setPage] = useState(1);

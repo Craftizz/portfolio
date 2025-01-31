@@ -6,7 +6,10 @@ async function getTotalCount(
   searchTerm: string,
   category: string
 ) {
-  let query = db.selectFrom("gallery").select(sql`count(*)`.as("total_count"));
+  let query = db
+    .selectFrom("gallery")
+    .select(sql`count(*)`
+    .as("total_count"));
 
   if (category) {
     query = query.where("category", "=", category);

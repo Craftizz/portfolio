@@ -15,6 +15,7 @@ interface Database {
     title: string;
     category: string;
     base64: string;
+    tags: string[]
   };
 }
 
