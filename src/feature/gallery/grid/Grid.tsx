@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Frame } from "@/types/frames";
-import { getNextFrames } from "@/lib/queries";
+import { getNextFrames } from "@/service/ClientQueryService";
 import { generateSeed } from "@/utils/random";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Footer from "@/components/layout/footer/Footer";
@@ -18,9 +18,11 @@ const seed = generateSeed();
 const limit = 12;
 
 export default function GalleryGrid({
-  searchQuery,
+  query,
+  category,
 }: {
-  searchQuery: string
+  query: string | string[]
+  category: string | string[]
 }) {
   const [frames, setFrames] = useState<Frame[]>([]);
   const [page, setPage] = useState(1);
@@ -34,11 +36,7 @@ export default function GalleryGrid({
 
     try {
 
-      const result = await getNextFrames(
-        searchQuery, 
-        currentPage, 
-        limit, 
-        seed);
+      const result = await getNextFrames(query, category, currentPage, limit, seed);
 
       if (!result) {
 
@@ -66,15 +64,13 @@ export default function GalleryGrid({
     setHasMore(true);
     getFrames(true);
 
-  }, [searchQuery])
+  }, [query, category])
 
   if (error) {
-
     return <GridSkeleton />;
   }
 
-  if (frames.length === 0 && searchQuery && !hasMore) {
-
+  if (frames.length === 0 && query && !hasMore) {
     return <GalleryNoResult />;
   }
 

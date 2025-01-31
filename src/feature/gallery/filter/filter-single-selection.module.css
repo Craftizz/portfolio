@@ -1,0 +1,70 @@
+.filter__selection {
+    position: relative;
+}
+
+.tag {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    white-space: nowrap;
+    font-family: var(--font1);
+    font-size: .75rem;
+    text-transform: capitalize;
+    padding-top: .25rem;
+    padding-bottom: .25rem;
+    padding-left: .75rem;
+    padding-right: .75rem;
+    height: 2rem;
+    color: var(--lightColor1);
+    background-color: transparent;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.tag:hover {
+    background-color: var(--lightColor1);
+    color: var(--darkColor1);
+}
+
+.selection {
+    z-index: 99;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    padding: 8px 2px;
+    list-style: none;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    background-color: var(--darkColor1);
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    text-align: left;
+    column-gap: 6px;
+    width: 100%;
+    white-space: nowrap;
+    font-family: var(--font1);
+    font-size: .75rem;
+    text-align: left;
+    text-transform: capitalize;
+    margin: 1px;    
+    padding-top: .25rem;
+    padding-bottom: .25rem;
+    padding-left: .75rem;
+    padding-right: .75rem;
+    color: var(--lightColor1);
+    border: none;
+    border-radius: 4px;
+    background-color: transparent;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.item:hover, .selected {
+    background-color: var(--grayColor4);
+}

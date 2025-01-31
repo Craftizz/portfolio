@@ -2,25 +2,27 @@ import Header from "@/components/layout/header/Header";
 import styles from "./page.module.css";
 
 import { ReactLenis } from "lenis/react";
-import GallerySearch from "@/components/gallery/search/SearchLayout";
 import GalleryGrid from "@/feature/gallery/grid/Grid";
 import ErrorAlert from "@/components/layout/error/ErrorAlert";
 import FilterLayout from "@/feature/gallery/filter/FilterLayout";
 
-export default async function Page(props: {
-  searchParams?: Promise<{ query?: string }>;
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const searchParams = await props.searchParams;
-  const query = searchParams?.query || "";
+  
+  const filters = await searchParams;
+  const query = filters.query || "";
+  const category = filters.category || "";
 
   return (
     <ReactLenis root>
       <Header />
       <ErrorAlert />
       <FilterLayout />
-      {/* <GallerySearch /> */}
       <div className={styles.gallery}>
-        <GalleryGrid searchQuery={query} />
+        <GalleryGrid query={query} category={category} />
       </div>
       <div className={styles.overlay__gradient}></div>
     </ReactLenis>
