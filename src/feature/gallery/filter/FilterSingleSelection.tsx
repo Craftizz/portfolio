@@ -1,12 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { validateOrDefault } from "@/utils/validate";
+import useSearchHandler from "@/hooks/useSearchHandler";
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 
 import styles from "./filter-single-selection.module.css";
-import { validateOrDefault } from "@/utils/validate";
 
 export default function FilterSingleSelection({
   category,
@@ -17,9 +18,8 @@ export default function FilterSingleSelection({
 }) {
 
   const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const { replace } = useRouter();
-
+  const { handleSearch } = useSearchHandler();
+  
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState<string | null>(null);
 
@@ -35,25 +35,14 @@ export default function FilterSingleSelection({
 
     if (selected === option) {
 
-      handleSearch("category");
+      handleSearch(searchParams, { category: null });
       setSelected(null);
+
       return;
     }
 
-    handleSearch("category", option);
+    handleSearch(searchParams, { category: option});
     setSelected(option);
-  }
-
-  function handleSearch(param: string, value?: string) {
-    const params = new URLSearchParams(searchParams);
-
-    if (value) {
-      params.set(param, value);
-    } else {
-      params.delete(param);
-    }
-
-    replace(`${pathname}?${params.toString()}`);
   }
 
   useEffect(() => {

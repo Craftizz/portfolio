@@ -1,30 +1,21 @@
 'use client';
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useError } from "@/context/ErrorContext";
+import useSearchHandler from "@/hooks/useSearchHandler";
 import FilterTagsSkeleton from "./FilterTagsSkeleton";
 
 import styles from "./filter-tags.module.css";
 
-export default function FilterTags({ tags }: { tags: string[] }) {
+export default function FilterTags({ 
+  tags 
+}: { 
+  tags: string[] 
+}) {
 
   const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const { replace } = useRouter();
-  
+  const { handleSearch } = useSearchHandler();
   const { setError } = useError();
-
-  function handleSearch(param: string, value: string) {
-    const params = new URLSearchParams(searchParams);
-
-    if (value) {
-      params.set(param, value);
-    } else {
-      params.delete(param);
-    }
-
-    replace(`${pathname}?${params.toString()}`);
-  }
 
   if (!tags || tags.length === 0) { 
   
@@ -40,7 +31,7 @@ export default function FilterTags({ tags }: { tags: string[] }) {
           key={index}
           type="button"
           className={styles.tag}
-          onClick={() => handleSearch("query", tag)}
+          onClick={() => handleSearch(searchParams, { query: tag })}
         >
           {tag}
         </button>

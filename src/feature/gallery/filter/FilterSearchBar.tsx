@@ -1,31 +1,19 @@
 "use client";
 
 import { useRef } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { IconButton } from "@mui/material";
+import useSearchHandler from "@/hooks/useSearchHandler";
 import ClearIcon from "@mui/icons-material/Clear";
 
 import styles from "./filter-search-bar.module.css";
 
 export default function FilterSearchBar() {
 
-  const inputRef = useRef<HTMLInputElement>(null);
-
   const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const { replace } = useRouter();
+  const { handleSearch } = useSearchHandler();
 
-  function handleSearch(param: string, value: string) {
-    const params = new URLSearchParams(searchParams);
-
-    if (value) {
-      params.set(param, value);
-    } else {
-      params.delete(param);
-    }
-
-    replace(`${pathname}?${params.toString()}`);
-  }
+  const inputRef = useRef<HTMLInputElement>(null);
 
   function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
     if (event.key === "Enter" || event.key === "NumpadEnter") {
@@ -35,16 +23,17 @@ export default function FilterSearchBar() {
         return;
       }
 
-      handleSearch("query", (event.target as HTMLInputElement).value);
+      handleSearch(searchParams, {
+        query: (event.target as HTMLInputElement).value,
+      });
     }
   }
 
   function handleClear() {
     if (inputRef.current) {
       inputRef.current.value = "";
-
       if (searchParams.has("query")) {
-        handleSearch("query", "");
+        handleSearch(searchParams, { query: null });
       }
     }
   }
