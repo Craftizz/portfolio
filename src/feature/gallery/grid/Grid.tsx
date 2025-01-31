@@ -27,8 +27,9 @@ export default function GalleryGrid({
   const [frames, setFrames] = useState<Frame[]>([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const totalFrames = useRef(0);
   const { error, setError } = useError();
+  
+  const totalFrames = useRef(0);
 
   async function getFrames(isFirstQuery : boolean) {
 

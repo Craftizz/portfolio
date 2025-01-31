@@ -9,7 +9,7 @@ async function searchHandler(
   category: string
 ): Promise<any> {
   
-  const searchResult = await getSearchResults(searchTerm, page, limit, seed, category);
+  const searchResult = await getSearchResults(searchTerm, category, page, limit, seed);
   const totalCount = await getTotalCount(searchTerm, category);
 
   return { searchResult, totalCount };

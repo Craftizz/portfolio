@@ -1,6 +1,14 @@
 import db from "@/app/lib/data";
 import { sql } from "kysely";
 
+/**
+ * A function to return a searchable tags
+ * based on current filter
+ * 
+ * @param category category of random tags
+ * @param limit number of results
+ * @returns string[] of tags
+ */
 export async function getRandomTags(
   category: string | string[] = "",
   limit: number = 5
@@ -30,6 +38,13 @@ export async function getRandomTags(
   }
 }
 
+/**
+ * A function to get a total count of a query
+ * 
+ * @param searchTerm the search of query
+ * @param category the category of query
+ * @returns a number of total results of the query
+ */
 export async function getTotalCount(searchTerm: string, category: string) {
   let query = db.selectFrom("gallery").select(sql`count(*)`.as("total_count"));
 
@@ -48,12 +63,23 @@ export async function getTotalCount(searchTerm: string, category: string) {
   return queryResult?.total_count ?? 0;
 }
 
+/**
+ * A function to get frames based 
+ * on search, category page, and seed.
+ * 
+ * @param searchTerm the search for the query
+ * @param category the category of the query
+ * @param page the offset for the query
+ * @param limit the number of results
+ * @param seed random hex used for consistency
+ * @returns frame with id, title, category and base64
+ */
 export async function getSearchResults(
   searchTerm: string,
+  category: string,
   page: number,
   limit: number,
   seed: number,
-  category: string
 ): Promise<any> {
   console.log("Querying with seed:", seed);
 
@@ -77,5 +103,7 @@ export async function getSearchResults(
     query = query.orderBy(sql`md5(concat(${seed}::text, id::text))`);
   }
 
-  return await query.offset(offset).limit(limit).execute();
+  return await query.offset(offset)
+                    .limit(limit)
+                    .execute();
 }
