@@ -1,27 +1,32 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { validateOrDefault } from "@/utils/validate";
 import useSearchHandler from "@/hooks/useSearchHandler";
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
+import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
 
 import styles from "./filter-single-selection.module.css";
 
 export default function FilterSingleSelection({
-  category,
+  filter,
+  param,
   options,
 }: {
-  category: string
-  options: string[];
+  filter: string,
+  param: string,
+  options: Record<string, string>;
 }) {
+
+  const validatedParam = validateOrDefault(param, Object.keys(options), null);
 
   const searchParams = useSearchParams();
   const { handleSearch } = useSearchHandler();
   
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState<string | null>(null);
+  const [selected, setSelected] = useState<string | null>(validatedParam);
 
   function handleButton() {
     if (isOpen) {
@@ -35,25 +40,15 @@ export default function FilterSingleSelection({
 
     if (selected === option) {
 
-      handleSearch(searchParams, { category: null });
+      handleSearch(searchParams, { [filter]: null });
       setSelected(null);
 
       return;
     }
 
-    handleSearch(searchParams, { category: option});
+    handleSearch(searchParams, { [filter]: option });
     setSelected(option);
   }
-
-  useEffect(() => {
-
-    if (category) {
-
-      const validatedCategory = validateOrDefault(category, options, null);
-      
-      setSelected(validatedCategory);
-    }
-  }, []);
 
   return (
     <div 
@@ -62,20 +57,20 @@ export default function FilterSingleSelection({
       onMouseLeave={() => setIsOpen(false)}
     >
       <button type="button" className={styles.tag} onClick={handleButton}>
-        {selected ? selected : "Category"}
+        {selected ? options[selected] : filter}
         <ArrowDropDownIcon fontSize="small" />
       </button>
       {isOpen && (
         <ul className={styles.selection}>
-          {options.map((option, index) => (
+          {Object.entries(options).map(([key, value], index) => (
             <li key={index}>
               <button
                 type="button"
-                className={`${styles.item} ${selected === option || searchParams.get("category")?.toString() === option ? styles.selected : ""}`}
-                onClick={() => handleButtonSelection(option)}
+                className={`${styles.item} ${selected === key || param === key ? styles.selected : ""}`}
+                onClick={() => handleButtonSelection(key)}
               >
-                 <AddRoundedIcon fontSize="small" />
-                {option}
+                 {selected === key ? <RemoveRoundedIcon fontSize="small" /> : <AddRoundedIcon fontSize="small" />}
+                {value}
               </button>
             </li>
           ))}

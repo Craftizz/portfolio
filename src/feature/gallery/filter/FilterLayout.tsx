@@ -10,13 +10,22 @@ export default function FilterLayout({
 } : { 
     category: string
 }) {
-    return(
-        <div className={styles.filter__content}>
-            <FilterSearchBar />
-            <FilterSingleSelection category={category} options={["Short", "Ads"]} />
-            <Suspense>
-                <FilterTagsContainer category={category} />
-            </Suspense>
-        </div>
-    )
+    return (
+      <div className={styles.filter__content}>
+        <FilterSearchBar />
+        <FilterSingleSelection
+          filter="category"
+          param={category}
+          options={{ Short: "Narrative", Ads: "Advertisement" }}
+        />
+        <FilterSingleSelection
+          filter="time"
+          param={category}
+          options={{ sunrise: "Sunrise", day: "Day", sunset: "Sunset", night: "Night" }}
+        />
+        <Suspense>
+          <FilterTagsContainer category={category} />
+        </Suspense>
+      </div>
+    );
 }
