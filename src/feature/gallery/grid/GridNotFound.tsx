@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
-import styles from "./grid-not-found.module.css";
+import { useError } from "@/context/ErrorContext";
+import { getNextFrames } from "@/service/ClientQueryService";
 import { Frame } from "@/types/frames";
+import { generateSeed } from "@/utils/random";
 import GalleryCard from "./card/Card";
 import Footer from "@/components/layout/footer/Footer";
-import { generateSeed } from "@/utils/random";
-import { getNextFrames } from "@/lib/queries";
-import { useError } from "@/context/ErrorContext";
+
+import styles from "./grid-not-found.module.css";
 
 export default function GalleryNoResult() {
 
     const [frames, setFrames] = useState<Frame[]>([]);
-    const { error, setError } = useError();
+    const { setError } = useError();
 
     const seed = generateSeed();
 
@@ -18,7 +19,7 @@ export default function GalleryNoResult() {
         
         try {
 
-            const result = await getNextFrames("", 1, 3, seed);
+            const result = await getNextFrames("", "", 1, 3, seed);
 
             if (!result) {
 

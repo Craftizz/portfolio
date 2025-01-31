@@ -1,62 +1,5 @@
-import db from "@/app/lib/data";
-import { sql } from "kysely";
 import { NextRequest } from "next/server";
-
-async function getTotalCount(
-  searchTerm: string,
-  category: string
-) {
-  let query = db
-    .selectFrom("gallery")
-    .select(sql`count(*)`
-    .as("total_count"));
-
-  if (category) {
-    query = query.where("category", "=", category);
-  }
-
-  if (searchTerm) {
-    query = query.where(
-      sql<boolean>`tsv_search @@ plainto_tsquery('english', ${searchTerm})`
-    );
-  }
-
-  const queryResult = await query.executeTakeFirst();
-
-  return queryResult?.total_count ?? 0;
-}
-
-async function getSearchResults(
-  searchTerm: string,
-  page: number,
-  limit: number,
-  seed: number,
-  category: string
-): Promise<any> {
-  console.log("Querying with seed:", seed);
-
-  const offset = (page - 1) * limit;
-
-  let query = db
-    .selectFrom("gallery")
-    .select(["id", "title", "category", "base64"]);
-
-  if (category) {
-    query = query.where("category", "=", category);
-  }
-
-  if (searchTerm) {
-    query = query.where(
-      sql<boolean>`tsv_search @@ plainto_tsquery('english', ${searchTerm})`
-    );
-  }
-
-  if (!searchTerm || !category) {
-    query = query.orderBy(sql`md5(concat(${seed}::text, id::text))`);
-  }
-
-  return await query.offset(offset).limit(limit).execute();
-}
+import { getSearchResults, getTotalCount } from "@/service/ServerQueryService";
 
 async function searchHandler(
   searchTerm: string,
@@ -65,13 +8,8 @@ async function searchHandler(
   seed: number,
   category: string
 ): Promise<any> {
-  const searchResult = await getSearchResults(
-    searchTerm,
-    page,
-    limit,
-    seed,
-    category
-  );
+  
+  const searchResult = await getSearchResults(searchTerm, page, limit, seed, category);
   const totalCount = await getTotalCount(searchTerm, category);
 
   return { searchResult, totalCount };
