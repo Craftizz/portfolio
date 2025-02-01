@@ -4,6 +4,7 @@
 
 .tag {
     display: flex;
+    column-gap: 4px;
     align-items: center;
     justify-content: space-between;
     white-space: nowrap;
@@ -67,4 +68,13 @@
 
 .item:hover, .selected {
     background-color: var(--grayColor4);
+}
+
+@media (max-width: 960px) { 
+
+
+    .selection {
+        top: auto;
+        bottom: 100%;
+    }
 }

@@ -15,13 +15,18 @@ export default function FilterTags({
 
   const searchParams = useSearchParams();
   const { handleSearch } = useSearchHandler();
-  const { setError } = useError();
+  // const { setError } = useError();
 
-  if (!tags || tags.length === 0) { 
+  // if (!tags || tags.length === 0) { 
   
-      setError("Failed to gather search suggestions");
+  //     setError("Failed to gather search suggestions");
   
-      return <FilterTagsSkeleton />;
+  //     return <FilterTagsSkeleton />;
+  // }
+
+    if (!tags || tags.length === 0) { 
+  
+      return null;
   }
 
   return (

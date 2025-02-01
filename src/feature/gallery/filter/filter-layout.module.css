@@ -4,5 +4,73 @@
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
-    
+}
+
+.filter__wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.tag {
+    display: none;
+    padding: .25rem;
+    height: 2rem;
+    color: var(--lightColor1);
+    background-color: transparent;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.tag:hover {
+    background-color: var(--lightColor1);
+    color: var(--darkColor1);
+}
+
+.filters {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+@media (max-width: 960px) {
+
+    .filters {
+        display: flex;
+        visibility: hidden;
+        width: 100%;
+        padding: 5vh 2vw;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        backdrop-filter: blur(9px) saturate(200%);
+        -webkit-backdrop-filter: blur(9px) saturate(200%);
+        background-color: rgba(0, 0, 0, 0.7);
+        border-radius: 15px;
+        border-top: 1px solid rgba(255, 255, 255, 0.125);
+        z-index: 99;
+        transform: translateY(100%);
+    }
+
+    .tag {
+        display: block;
+    }
+
+    .visible {
+        visibility: visible;
+        animation: slideUp 1s ease-out forwards;
+    }
+
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
 }

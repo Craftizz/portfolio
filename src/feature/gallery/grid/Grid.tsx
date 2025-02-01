@@ -20,9 +20,15 @@ const limit = 12;
 export default function GalleryGrid({
   query,
   category,
+  location,
+  time,
+  frame
 }: {
-  query: string | string[]
-  category: string
+  query: string,
+  category: string,
+  location: string,
+  time: string[],
+  frame: string[]
 }) {
   const [frames, setFrames] = useState<Frame[]>([]);
   const [page, setPage] = useState(1);
@@ -37,7 +43,7 @@ export default function GalleryGrid({
 
     try {
 
-      const result = await getNextFrames(query, category, currentPage, limit, seed);
+      const result = await getNextFrames(query, category, location, time, frame, currentPage, limit, seed);
 
       if (!result) {
 
@@ -65,14 +71,14 @@ export default function GalleryGrid({
     setHasMore(true);
     getFrames(true);
 
-  }, [query, category])
+  }, [query, category, location, time, frame])
+
+  if (frames.length === 0 && !hasMore) {
+    return <GalleryNoResult />;
+  }
 
   if (error) {
     return <GridSkeleton />;
-  }
-
-  if (frames.length === 0 && query && !hasMore) {
-    return <GalleryNoResult />;
   }
 
   return (

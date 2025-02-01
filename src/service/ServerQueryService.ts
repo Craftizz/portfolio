@@ -11,6 +11,9 @@ import { sql } from "kysely";
  */
 export async function getRandomTags(
   category: string | string[] = "",
+  location: string,
+  time: string[],
+  frame: string[],
   limit: number = 5
 ): Promise<string[]> {
   try {
@@ -18,6 +21,18 @@ export async function getRandomTags(
 
     if (category) {
       query = query.where("category", "=", category);
+    }
+
+    if (location) {
+      query = query.where("location", "=", location);
+    }
+  
+    if (time && time.some(item => item.trim() !== "")) {
+      query = query.where("time", "in", time);
+    }
+  
+    if (frame && frame.some(item => item.trim() !== "")) {
+      query = query.where("size", "in", frame);
     }
 
     const result = await query
@@ -45,11 +60,29 @@ export async function getRandomTags(
  * @param category the category of query
  * @returns a number of total results of the query
  */
-export async function getTotalCount(searchTerm: string, category: string) {
+export async function getTotalCount(
+  searchTerm: string,
+  category: string,
+  location: string,
+  time: string[],
+  frame: string[]
+) {
   let query = db.selectFrom("gallery").select(sql`count(*)`.as("total_count"));
 
   if (category) {
     query = query.where("category", "=", category);
+  }
+
+  if (location) {
+    query = query.where("location", "=", location);
+  }
+
+  if (time && time.some(item => item.trim() !== "")) {
+    query = query.where("time", "in", time);
+  }
+
+  if (frame && frame.some(item => item.trim() !== "")) {
+    query = query.where("size", "in", frame);
   }
 
   if (searchTerm) {
@@ -77,6 +110,9 @@ export async function getTotalCount(searchTerm: string, category: string) {
 export async function getSearchResults(
   searchTerm: string,
   category: string,
+  location: string,
+  time: string[],
+  frame: string[],
   page: number,
   limit: number,
   seed: number,
@@ -91,6 +127,18 @@ export async function getSearchResults(
 
   if (category) {
     query = query.where("category", "=", category);
+  }
+
+  if (location) {
+    query = query.where("location", "=", location);
+  }
+
+  if (time && time.some(item => item.trim() !== "")) {
+    query = query.where("time", "in", time);
+  }
+
+  if (frame && frame.some(item => item.trim() !== "")) {
+    query = query.where("size", "in", frame);
   }
 
   if (searchTerm) {

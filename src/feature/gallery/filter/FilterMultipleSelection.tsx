@@ -1,14 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { validateArrayOrEmpty } from "@/utils/validate";
 import useSearchHandler from "@/hooks/useSearchHandler";
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import CheckBoxOutlineBlankRoundedIcon from '@mui/icons-material/CheckBoxOutlineBlankRounded';
 import CheckBoxRoundedIcon from '@mui/icons-material/CheckBoxRounded';
 
-import styles from "./filter-single-selection.module.css";
-import { validateArrayOrEmpty } from "@/utils/validate";
+import styles from "./filter-selection.module.css";
 
 export default function FilterMultipleSelection({
   filter,
@@ -20,13 +20,15 @@ export default function FilterMultipleSelection({
   options: Record<string, string>;
 }) {
 
-  const validatedParam = validateArrayOrEmpty(param, Object.keys(options));
 
   const searchParams = useSearchParams();
   const { handleSearch } = useSearchHandler();
   
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState<string[]>(validatedParam);
+  const selected = useMemo(
+    () => validateArrayOrEmpty(param, Object.keys(options)),
+    [param]
+  );
 
   function handleButton() {
     if (isOpen) {
@@ -46,7 +48,6 @@ export default function FilterMultipleSelection({
         updatedSelect = [...selected, option];
     }
 
-    setSelected(updatedSelect);
     handleSearch(searchParams, { [filter]: updatedSelect});
   }
 

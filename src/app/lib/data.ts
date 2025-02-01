@@ -14,6 +14,9 @@ interface Database {
     id: string;
     title: string;
     category: string;
+    location: string;
+    time: string;
+    size: string;
     base64: string;
     tags: string[]
   };

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { validateOrDefault } from "@/utils/validate";
 import useSearchHandler from "@/hooks/useSearchHandler";
@@ -8,7 +8,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
 
-import styles from "./filter-single-selection.module.css";
+import styles from "./filter-selection.module.css";
 
 export default function FilterSingleSelection({
   filter,
@@ -20,13 +20,14 @@ export default function FilterSingleSelection({
   options: Record<string, string>;
 }) {
 
-  const validatedParam = validateOrDefault(param, Object.keys(options), null);
-
   const searchParams = useSearchParams();
   const { handleSearch } = useSearchHandler();
-  
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState<string | null>(validatedParam);
+
+  const selected = useMemo(
+    () => validateOrDefault(param, Object.keys(options), null),
+    [param]
+  );
 
   function handleButton() {
     if (isOpen) {
@@ -41,13 +42,10 @@ export default function FilterSingleSelection({
     if (selected === option) {
 
       handleSearch(searchParams, { [filter]: null });
-      setSelected(null);
-
       return;
     }
 
     handleSearch(searchParams, { [filter]: option });
-    setSelected(option);
   }
 
   return (

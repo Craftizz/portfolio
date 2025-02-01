@@ -13,19 +13,20 @@ export default async function Page({
 }) {
   
   const filters = await searchParams;
-  const query = filters.query || "";
 
+  const query = typeof filters.query === 'string' ? filters.query : "";
   const category = typeof filters.category === 'string' ? filters.category : "";
-  const time = filters.time || "";
-  const frame = filters.frame || "";
+  const location = typeof filters.location === 'string' ? filters.location : "";
+  const time = Array.isArray(filters.time) ? filters.time : filters.time ? [filters.time] : [""];
+  const frame = Array.isArray(filters.frame) ? filters.frame : filters.frame ? [filters.frame] : [""];
 
   return (
     <ReactLenis root>
       <Header />
       <ErrorAlert />
-      <FilterLayout category={category} time={time} frame={frame}/>
+      <FilterLayout category={category} location={location} time={time} frame={frame}/>
       <div className={styles.gallery}>
-        <GalleryGrid query={query} category={category} />
+        <GalleryGrid query={query} category={category} location={location} time={time} frame={frame} />
       </div>
       <div className={styles.overlay__gradient}></div>
     </ReactLenis>

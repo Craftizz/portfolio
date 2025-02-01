@@ -19,7 +19,7 @@ export default function GalleryNoResult() {
         
         try {
 
-            const result = await getNextFrames("", "", 1, 3, seed);
+            const result = await getNextFrames(undefined, undefined, undefined, undefined, undefined, 1, 3, seed);
 
             if (!result) {
 

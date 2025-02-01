@@ -33,3 +33,10 @@
 .search__bar:focus-within .search__reset {
     opacity: 1;
   }
+
+@media (max-width: 960px) { 
+
+    .search__bar {
+        flex-grow: 1
+    }
+}
