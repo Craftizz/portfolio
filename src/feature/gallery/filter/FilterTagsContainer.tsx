@@ -1,20 +1,15 @@
 import { getRandomTags } from "@/service/ServerQueryService";
+import { Filters } from "@/types/filters";
 import FilterTags from "./FilterTags";
 
 
 export default async function FilterTagsContainer({ 
-    category,
-    location,
-    time,
-    frame,
+    filters,
 } : { 
-    category: string
-    location: string,
-    time: string[],
-    frame: string[],
+    filters: Filters
 }) {
 
-    const tags: string[] = await getRandomTags(category, location, time, frame);
+    const tags: string[] = await getRandomTags(filters);
 
     return <FilterTags tags={tags} />
 }

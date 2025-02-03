@@ -19,8 +19,7 @@ export default function FilterMultipleSelection({
   param: string | string[],
   options: Record<string, string>;
 }) {
-
-
+  
   const searchParams = useSearchParams();
   const { handleSearch } = useSearchHandler();
   
@@ -30,7 +29,7 @@ export default function FilterMultipleSelection({
     [param]
   );
 
-  function handleButton() {
+  function handleButton(): void {
     if (isOpen) {
       setIsOpen(false);
     } else {
@@ -38,17 +37,17 @@ export default function FilterMultipleSelection({
     }
   }
 
-  function handleButtonSelection(option: string) {
+  function handleButtonSelection(option: string): void {
 
-    let updatedSelect;
+    let updatedSelection;
 
     if (selected.includes(option)) {
-        updatedSelect = selected.filter((item) => item !== option);
+        updatedSelection = selected.filter((item) => item !== option);
     } else {
-        updatedSelect = [...selected, option];
+        updatedSelection = [...selected, option];
     }
 
-    handleSearch(searchParams, { [filter]: updatedSelect});
+    handleSearch(searchParams, { [filter]: updatedSelection });
   }
 
   return (
@@ -67,7 +66,7 @@ export default function FilterMultipleSelection({
             <li key={index}>
               <button
                 type="button"
-                className={`${styles.item} ${selected.includes(key) ? styles.selected : ""}`}
+                className={`${styles.item} ${selected.includes(key) ? styles.selected : ''}`}
                 onClick={() => handleButtonSelection(key)}
               >
                  {selected.includes(key) ? <CheckBoxRoundedIcon fontSize="small" /> : <CheckBoxOutlineBlankRoundedIcon fontSize="small" />}

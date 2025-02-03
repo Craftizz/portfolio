@@ -13,23 +13,17 @@ import GallerySkeleton from "./GridSkeleton";
 import GalleryNoResult from "./GridNotFound";
 import GridSkeleton from "./GridSkeleton";
 import { useError } from "@/context/ErrorContext";
+import { Filters } from "@/types/filters";
 
 const seed = generateSeed();
 const limit = 12;
 
-export default function GalleryGrid({
-  query,
-  category,
-  location,
-  time,
-  frame
+export default function GalleryGrid({ 
+  filters 
 }: {
-  query: string,
-  category: string,
-  location: string,
-  time: string[],
-  frame: string[]
+  filters: Filters
 }) {
+  
   const [frames, setFrames] = useState<Frame[]>([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
@@ -43,7 +37,7 @@ export default function GalleryGrid({
 
     try {
 
-      const result = await getNextFrames(query, category, location, time, frame, currentPage, limit, seed);
+      const result = await getNextFrames(filters, currentPage, limit, seed);
 
       if (!result) {
 
@@ -71,7 +65,7 @@ export default function GalleryGrid({
     setHasMore(true);
     getFrames(true);
 
-  }, [query, category, location, time, frame])
+  }, [filters])
 
   if (frames.length === 0 && !hasMore) {
     return <GalleryNoResult />;

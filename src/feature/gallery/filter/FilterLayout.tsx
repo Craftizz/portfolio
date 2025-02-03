@@ -8,22 +8,19 @@ import FilterCopy from "./FilterCopy";
 
 import styles from "./filter-layout.module.css";
 import FilterSelectionWrapper from "./FilterSelectionWrapper";
+import { Filters } from "@/types/filters";
 
 export default function FilterLayout({ 
-  category,
-  location,
-  time,
-  frame,
+  filters
 }: {
-  category: string,
-  location: string,
-  time: string[],
-  frame: string[];
+  filters: Filters
 }) {
+
+  const { query, category, location, time, frame } = filters;
 
     return (
       <div className={styles.filter__content}>
-        <FilterSearchBar />
+        <FilterSearchBar query={query} />
         <FilterSelectionWrapper>
           <FilterSingleSelection
             filter="category"
@@ -67,7 +64,7 @@ export default function FilterLayout({
           <FilterCopy />
         </FilterSelectionWrapper>
         <Suspense>
-          <FilterTagsContainer category={category} location={location} time={time} frame={frame}/>
+          <FilterTagsContainer filters={filters}/>
         </Suspense>
       </div>
     );

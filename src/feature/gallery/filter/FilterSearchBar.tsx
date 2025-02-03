@@ -8,7 +8,11 @@ import ClearIcon from "@mui/icons-material/Clear";
 
 import styles from "./filter-search-bar.module.css";
 
-export default function FilterSearchBar() {
+export default function FilterSearchBar({ 
+  query 
+}: { 
+  query: string
+}) {
 
   const searchParams = useSearchParams();
   const { handleSearch } = useSearchHandler();
@@ -46,7 +50,7 @@ export default function FilterSearchBar() {
         type="text"
         onKeyDown={handleKeyDown}
         placeholder="Search"
-        defaultValue={searchParams.get("query")?.toString()}
+        defaultValue={query}
       />
       <IconButton
         className={styles.search__reset}

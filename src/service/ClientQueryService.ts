@@ -1,17 +1,17 @@
 'use client';
 
+import { Filters } from "@/types/filters";
+
 export async function getNextFrames(
-    query: string = "",
-    category: string = "",
-    location: string = "",
-    time: string[] = [],
-    frame: string[] = [],
+    filters: Filters,
     page: number = 1,
     limit: number = 12,
     seed: number = 0
   ) {
     try {
 
+      const { query, category, location, time, frame } = filters;
+      
       const params = new URLSearchParams();
 
       if (query) {
