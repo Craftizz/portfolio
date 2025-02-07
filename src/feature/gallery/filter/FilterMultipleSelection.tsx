@@ -57,7 +57,8 @@ export default function FilterMultipleSelection({
       onMouseLeave={() => setIsOpen(false)}
     >
       <button type="button" className={styles.tag} onClick={handleButton}>
-        {filter}
+        {filter} 
+        {selected.length > 0 && ` [${selected.length}]`}
         <ArrowDropDownIcon fontSize="small" />
       </button>
       {isOpen && (

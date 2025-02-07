@@ -16,7 +16,7 @@ import { useError } from "@/context/ErrorContext";
 import { Filters } from "@/types/filters";
 
 const seed = generateSeed();
-const limit = 12;
+const limit = 6;
 
 export default function GalleryGrid({ 
   filters 

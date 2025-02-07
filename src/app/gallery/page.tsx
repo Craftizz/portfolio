@@ -24,7 +24,7 @@ export default async function Page({
 
   return (
     <ReactLenis root>
-      <Header />
+      <Header variant="bordered" />
       <ErrorAlert />
       <FilterLayout filters={filters}/>
       <div className={styles.gallery}>

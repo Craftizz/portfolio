@@ -7,35 +7,48 @@ import { useRef } from "react";
 
 import styles from "./header.module.css";
 
-export default function Header() {
+export default function Header({ 
+  variant
+} : {
+  variant: 'bordered' | 'transparent';
+}) {
 
-  const logoRef = useRef<HTMLHeadingElement>(null);
-  const descriptionRef = useRef<HTMLHeadingElement>(null);
+  const container = useRef<HTMLDivElement>(null)
+  const timeline = useRef<GSAPTimeline>(null);
 
   useGSAP(() => {
-    if (logoRef.current && descriptionRef.current) {
-      const splitDescription = new SplitType(descriptionRef.current, {
-        types: "chars",
-      });
 
-      let timeline = gsap.timeline();
+    const logo = SplitType.create(`.${styles.header__logo}`);
+    const description = SplitType.create(`.${styles.header__description}`);
 
-      timeline.from(logoRef.current, {
-        autoAlpha: 0,
-        yPercent: 100,
-        duration: 1,
-        ease: "power2",
-      });
+    timeline.current = gsap
+      .timeline()
 
-      timeline.from(splitDescription.chars, {
-        backgroundColor: "var(--lightColor1)",
-        opacity: 0,
-        stagger: 0.05,
-        duration: 0.1,
-        ease: "steps(5)",
-      }, ">");
-    }
-  });
+      .from(logo.words, {
+          autoAlpha: 0,
+          yPercent: 100,
+          duration: 1,
+          stagger: 0.05,
+          ease: "power2",
+      })
+
+      .from(`.${styles.header__button}`, {
+          autoAlpha: 0,
+          yPercent: 100,
+          duration: 1,
+          stagger: 0.1,
+          ease: "power2",
+        },"<")
+
+      .from(description.chars, {
+          backgroundColor: "var(--lightColor1)",
+          opacity: 0,
+          stagger: 0.05,
+          duration: 0.1,
+          ease: "steps(5)",
+        }, "<50%");
+
+  }, { scope: container });
 
   function handleWorkButton() {
     window.location.href = "/";
@@ -46,24 +59,40 @@ export default function Header() {
   }
 
   return (
-    <header className={styles.header}>
+    <header
+      ref={container}
+      className={`${styles.header} ${
+        variant === "transparent"
+          ? styles.header__transparent
+          : styles.header__bordered
+      }`}
+    >
       <div className={styles.header__content}>
         <div className={styles.header__info}>
-          <h1 ref={logoRef} className={styles.header__logo}>
+          <h1 className={styles.header__logo}>
             John Lexter Laguinday
           </h1>
-          <p className={styles.header__description} ref={descriptionRef}>
+          <p className={styles.header__description}>
             Cinematographer
           </p>
         </div>
         <nav className={styles.header__nav}>
-          <button className={styles.button__transparent} onClick={handleWorkButton}>
+          <button
+            className={`${styles.header__button} ${styles.button__transparent}`}
+            onClick={handleWorkButton}
+          >
             Works
           </button>
-          <button className={styles.button__transparent} onClick={handleGalleryButton}>
+          <button
+            className={`${styles.header__button} ${styles.button__transparent}`}
+            onClick={handleGalleryButton}
+          >
             Gallery
           </button>
-          <button className={styles.button__filled} onClick={handleWorkButton}>
+          <button 
+            className={`${styles.header__button} ${styles.button__filled}`} 
+            onClick={handleWorkButton}
+          >
             Contact
           </button>
         </nav>

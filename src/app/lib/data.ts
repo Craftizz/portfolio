@@ -1,4 +1,4 @@
-import { Kysely, PostgresDialect } from 'kysely';
+import { Generated, Kysely, PostgresDialect } from 'kysely';
 import { Pool } from 'pg';
 
 const pool = new Pool({
@@ -20,6 +20,13 @@ interface Database {
     base64: string;
     tags: string[]
   };
+  downloads: {
+    id: Generated<number>;
+    image_id: string;
+    user_ip: string;
+    country: string
+    downloaded_at: Generated<Date>;
+  }
 }
 
 const db = new Kysely<Database>({

@@ -4,7 +4,11 @@ import { Frame } from "@/types/frames";
 import CardCaption from "./CardCaption";
 import CardButton from "./CardButton";
 
-export default function GalleryCard({ frame }: { frame: Frame }) {
+export default function GalleryCard({ 
+  frame 
+}: { 
+  frame: Frame 
+}) {
 
   return (
     <div className={styles.grid__card}>
@@ -22,7 +26,7 @@ export default function GalleryCard({ frame }: { frame: Frame }) {
       </div>
       <div className={styles.card__info}>
         <CardCaption metadata={frame}></CardCaption>
-        <CardButton frameId={frame.id} ></CardButton>
+        <CardButton id={frame.id} ></CardButton>
       </div>
     </div>
   );

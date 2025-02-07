@@ -16,7 +16,7 @@ export default function CardCaption({ metadata }: { metadata: Frame }) {
         let timeline = gsap.timeline({
             scrollTrigger: {
                 trigger: projectRef.current,
-                start: "top bottom-=10%",
+                start: "top bottom-=5%",
               },
         });
 
