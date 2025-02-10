@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import localFont from 'next/font/local'
-import GsapProvider from '@/context/GsapProvider';
 import { ErrorProvider } from "@/context/ErrorContext";
+import { GsapProvider } from "@/context/GsapContext";
 import type { Viewport } from 'next'
+import localFont from 'next/font/local'
 
 import "./globals.css";
 

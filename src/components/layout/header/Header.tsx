@@ -6,6 +6,8 @@ import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
 
 import styles from "./header.module.css";
+import Button from "@/components/button";
+import { time } from "console";
 
 export default function Header({ 
   variant
@@ -13,18 +15,18 @@ export default function Header({
   variant: 'bordered' | 'transparent';
 }) {
 
-  const container = useRef<HTMLDivElement>(null)
+  const container = useRef<HTMLDivElement>(null);
   const timeline = useRef<GSAPTimeline>(null);
 
   useGSAP(() => {
 
     const logo = SplitType.create(`.${styles.header__logo}`);
     const description = SplitType.create(`.${styles.header__description}`);
+    
+    const timeline = gsap.timeline();
+    timeline.current = timeline;
 
-    timeline.current = gsap
-      .timeline()
-
-      .from(logo.words, {
+    timeline.from(logo.words, {
           autoAlpha: 0,
           yPercent: 100,
           duration: 1,
@@ -32,31 +34,26 @@ export default function Header({
           ease: "power2",
       })
 
-      .from(`.${styles.header__button}`, {
+    timeline.from(".header__button", {
           autoAlpha: 0,
           yPercent: 100,
           duration: 1,
           stagger: 0.1,
           ease: "power2",
+          onComplete: () => {
+            gsap.set('.header__button', { clearProps: 'transform' });
+          }
         },"<")
 
-      .from(description.chars, {
+    timeline.from(description.chars, {
           backgroundColor: "var(--lightColor1)",
           opacity: 0,
           stagger: 0.05,
           duration: 0.1,
           ease: "steps(5)",
         }, "<50%");
-
+    
   }, { scope: container });
-
-  function handleWorkButton() {
-    window.location.href = "/";
-  }
-
-  function handleGalleryButton() {
-    window.location.href = "/gallery";
-  }
 
   return (
     <header
@@ -77,24 +74,15 @@ export default function Header({
           </p>
         </div>
         <nav className={styles.header__nav}>
-          <button
-            className={`${styles.header__button} ${styles.button__transparent}`}
-            onClick={handleWorkButton}
-          >
+          <Button className="header__button" variant="transparent" to="/">
             Works
-          </button>
-          <button
-            className={`${styles.header__button} ${styles.button__transparent}`}
-            onClick={handleGalleryButton}
-          >
+          </Button>
+          <Button className="header__button" variant="transparent" to="/gallery">
             Gallery
-          </button>
-          <button 
-            className={`${styles.header__button} ${styles.button__filled}`} 
-            onClick={handleWorkButton}
-          >
+          </Button>
+          <Button className="header__button" variant="filled" to="/">
             Contact
-          </button>
+          </Button>
         </nav>
       </div>
     </header>

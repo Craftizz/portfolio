@@ -1,0 +1,27 @@
+.button {
+    font-family: var(--font1);
+    font-weight: 400;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    border: none;
+    padding: 0.1rem 0.4rem;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 3px;
+    color: var(--darkColor1);
+}
+
+.button__transparent {
+    background: transparent;
+    color: var(--lightColor1);
+}
+
+.button__filled {
+    background: var(--grayColor1);
+}
+
+.button:hover {
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    transform: scale(1.05);
+}
