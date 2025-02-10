@@ -9,6 +9,7 @@ import WorkCard from "./WorkCard";
 import WorkHero from "./WorkHero";
 
 import styles from "./work.module.css";
+import WorkCaption from "./WorkCaption";
 
 
 export default function WorkLayout({
@@ -24,6 +25,7 @@ export default function WorkLayout({
 
   const [timeline, setTimeline] = useState<gsap.core.Timeline | null>(null);
   const [background, setBackground] = useState<VideoBackground>();
+  const [activeIndex, setActiveIndex] = useState<number>(0);
 
   useEffect(() => {
     if (initialVideo.current && canvasReel.current) {
@@ -90,10 +92,12 @@ export default function WorkLayout({
     { scope: container }
   );
 
-  function updateVideo(video: HTMLVideoElement) {
+  function updateData(video: HTMLVideoElement, index: number) {
     if (background) {
       background.updateVideoSource(video);
     }
+
+    setActiveIndex(index);
   }
 
   return (
@@ -124,12 +128,17 @@ export default function WorkLayout({
                   }
                 }}
                 key={project.source}
+                index={index}
                 sourceName={project.source}
                 timeline={timeline}
-                updateVideo={updateVideo}
+                updateData={updateData}
               />
             ))}
           </div>
+          <WorkCaption 
+            projects={projects}
+            activeIndex={activeIndex}
+          />
         </div>
       </div>
     </div>

@@ -7,16 +7,18 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { time } from "console";
 
 export default function WorkCard({
+  index,
   sourceName,
   timeline,
   pinnedContainer,
-  updateVideo,
+  updateData,
   ref
 }: {
+  index: number
   sourceName: string;
   timeline: gsap.core.Timeline | null
   pinnedContainer?: HTMLDivElement | null
-  updateVideo: (video: HTMLVideoElement) => void
+  updateData: (video: HTMLVideoElement, index: number) => void
   ref: Ref<HTMLVideoElement>
 }) {
 
@@ -61,7 +63,7 @@ export default function WorkCard({
             }
 
             if (video.current) {
-              updateVideo(video.current);
+                updateData(video.current, index);
             }
           },
         });

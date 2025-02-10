@@ -1,4 +1,4 @@
-export type Project = {
+export interface Project {
     project: string;
     category: string;
     director: string;
