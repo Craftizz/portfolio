@@ -1,11 +1,11 @@
-
 import { ReactLenis } from "lenis/react";
 import Header from "@/components/layout/header/Header";
 import Hero from "@/feature/home/hero/Hero";
 import WorkLayout from "@/feature/home/work/WorkLayout";
 import Footer from "@/components/layout/footer/Footer";
-import WorkCaption from "@/feature/home/work/WorkCaption";
-
+import WorkAnimationWrapper from "@/feature/home/work/WorkAnimationWrapper";
+import { LoadProvider } from "@/context/LoadContext";
+import PreLoader from "@/feature/preloader/PreLoader";
 
 const projects = [
   {
@@ -71,24 +71,20 @@ const projects = [
     trt: "00:00:00",
     source: "stihl-ad-10s",
   },
-]
+];
 
 export default function Home() {
-
-  
-
-    return (
-      <ReactLenis root>
-        <Header variant="transparent" />
-        <Hero />
-        <WorkLayout
-          projects={projects}
-        />
-        
-        <Footer />
-      </ReactLenis>
-    );
-
-
-
+  return (
+    <ReactLenis root>
+      <LoadProvider>
+        <PreLoader />
+        <WorkAnimationWrapper>
+          <Header variant="transparent" />
+          <Hero />
+          <WorkLayout projects={projects} />
+          <Footer />
+        </WorkAnimationWrapper>
+      </LoadProvider>
+    </ReactLenis>
+  );
 }

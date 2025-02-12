@@ -20,8 +20,8 @@
     background: var(--grayColor1);
 }
 
-.button:hover {
+/* .button:hover {
     transition: transform 0.3s ease;
     cursor: pointer;
     transform: scale(1.05);
-}
+} */

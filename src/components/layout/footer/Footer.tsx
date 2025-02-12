@@ -10,7 +10,6 @@ export default function Footer() {
     window.location.href = "/";
   }
 
-
   return (
     <footer className={styles.footer}>
       <section className={styles.footer__content}>

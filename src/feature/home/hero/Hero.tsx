@@ -2,60 +2,71 @@
 
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { useEffect, useRef } from "react";
-import { VideoBackground } from '@/lib/videoBackground';
+import { RefObject, useRef } from "react";
+import { heroCardSources } from "@/data/HeroSources";
+import { videoCardSources } from '@/data/HeroSources';
+import HeroCard from './HeroReelCard';
+import HeroVideoCard from './HeroVideoCard';
 
 import styles from "./hero.module.css";
 
 export default function Hero() {
 
   const container = useRef<HTMLDivElement>(null);
-  const videoReel = useRef<HTMLVideoElement>(null);
-  const canvasReel = useRef<HTMLCanvasElement>(null);
+  const cardsRef = useRef<Map<String, HTMLDivElement | null>>(null);
 
-  let videoBackground: VideoBackground;
+  function getMap() {
+    if (!cardsRef.current) {
 
-  useEffect(() => {
-
-    if (videoReel.current && canvasReel.current) {
-
-        videoBackground = new VideoBackground(
-          videoReel.current, 
-          canvasReel.current
-        );
+      cardsRef.current = new Map();
     }
 
-    return () => {
-      videoBackground?.stopRendering();
-    }
+    return cardsRef.current;
+  }
 
-  }, []);
+  animateCards(container, getMap());
 
+  return (
+    <div className={styles.hero}>
+      <div ref={container} className={styles.hero__cards}>
+        <HeroCard
+          sources={heroCardSources.sources}
+          ref={(node) => {
+            const map = getMap();
+            map.set(heroCardSources.project, node);
+
+            return () => {
+              map.delete(heroCardSources.project);
+            };
+          }}
+        />
+        {videoCardSources.map((data, index) => (
+          <HeroVideoCard
+            key={index}
+            sources={data.sources}
+            ref={(node) => {
+              const map = getMap();
+              map.set(data.project, node);
+
+              return () => {
+                map.delete(data.project);
+              };
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function animateCards(
+  container: RefObject<HTMLDivElement | null>,
+  getMap: Map<String, HTMLDivElement | null>
+) {
   useGSAP(() => {
 
-    const cards = gsap.utils.toArray<HTMLElement>(`.${styles.hero__card}`);
+    const cards = Array.from(getMap.values());
     const scaleMax = gsap.utils.mapRange(1, cards.length - 1, 0.9, 1);
-
-    if (videoReel.current && canvasReel.current) {
-
-        let timeline = gsap.timeline();
-
-        timeline.from(videoReel.current, {
-          clipPath: "inset(100% 0 0 0)",
-          duration: 2,
-          ease: "power2",
-          delay: 0.25,
-        });
-
-        timeline.from(canvasReel.current, {
-          autoAlpha: 0,
-          duration: 3,
-          ease: "power2",
-          onStart: () => {
-            videoBackground.startRendering();
-          },
-        }, ">-1");
-    }
 
     gsap.set(cards, {
       y: (index) => 30 * index,
@@ -87,103 +98,14 @@ export default function Hero() {
       }
     });
 
-    gsap.to(`.${styles.hero__cards}`, {
+    gsap.to(container.current, {
       scrollTrigger: {
-          trigger: `.${styles.hero__cards}`,
+          trigger: container.current,
           start: "30% 50%",
           scrub: true
         },
       y: -80
     });
 
-  });
-
-  return (
-    <div ref={container} className={styles.hero}>
-      <div className={styles.hero__cards}>
-        <div className={styles.hero__card}>
-          <video
-            ref={videoReel}
-            className={styles.card__video}
-            muted
-            autoPlay
-            loop
-            playsInline
-            preload="auto"
-          >
-            <source src="/videos/Test-Reel.mp4" type="video/mp4" />
-            <source src="/videos/Test-Reel.webm" type="video/webm" />
-            Your browser does not support the video tag.
-          </video>
-          <canvas
-            ref={canvasReel}
-            className={`${styles.hero__canvas}`}
-            width="2"
-            height="4"
-            aria-hidden="true"
-          ></canvas>
-        </div>
-        <div className={styles.hero__card}>
-          <video
-            className={styles.card__video}
-            muted
-            autoPlay
-            loop
-            playsInline
-          >
-            <source src="/videos/dilaw-mv-10s.mp4" type="video/mp4" />
-            <source src="/videos/dilaw-mv-10s.webm" type="video/webm" />
-            Your browser does not support the video tag.
-          </video>
-        </div>
-        <div className={styles.hero__card}>
-          <video
-            className={styles.card__video}
-            muted
-            autoPlay
-            loop
-            playsInline
-          >
-            <source src="/videos/ltp-ad-10s.mp4" type="video/mp4" />
-            <source src="/videos/ltp-ad-10s.webm" type="video/webm" />
-            Your browser does not support the video tag.
-          </video>
-        </div>
-        <div className={styles.hero__card}>
-          <video
-            className={styles.card__video}
-            muted
-            autoPlay
-            loop
-            playsInline
-          >
-            <source src="/videos/ulthera-ad-10s.mp4" type="video/mp4" />
-            <source src="/videos/ulthera-ad-10s.webm" type="video/webm" />
-            Your browser does not support the video tag.
-          </video>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Card(sourceName: string) {
-  return (
-    <div>
-      <div className={styles.hero__card}>
-        <video
-          className={styles.card__video}
-          muted
-          autoPlay
-          loop
-          playsInline
-          preload="auto"
-        >
-          <source src={`/videos/${sourceName}.mp4`} type="video/mp4" />
-          <source src={`/videos/${sourceName}.webm`} type="video/webm" />
-          Your browser does not support the video tag.
-        </video>
-      </div>
-    </div>
-  );
+  }, { scope: container });
 }

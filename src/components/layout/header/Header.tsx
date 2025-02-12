@@ -6,8 +6,7 @@ import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
 
 import styles from "./header.module.css";
-import Button from "@/components/button";
-import { time } from "console";
+import NavLink from "./NavLink";
 
 export default function Header({ 
   variant
@@ -18,7 +17,7 @@ export default function Header({
   const container = useRef<HTMLDivElement>(null);
   const timeline = useRef<GSAPTimeline>(null);
 
-  useGSAP(() => {
+  const { contextSafe } = useGSAP(() => {
 
     const logo = SplitType.create(`.${styles.header__logo}`);
     const description = SplitType.create(`.${styles.header__description}`);
@@ -29,19 +28,19 @@ export default function Header({
     timeline.from(logo.words, {
           autoAlpha: 0,
           yPercent: 100,
-          duration: 1,
+          duration: 1.5,
           stagger: 0.05,
           ease: "power2",
       })
 
-    timeline.from(".header__button", {
+    timeline.from(`.${styles.button}`, {
           autoAlpha: 0,
           yPercent: 100,
-          duration: 1,
+          duration: 1.5,
           stagger: 0.1,
           ease: "power2",
           onComplete: () => {
-            gsap.set('.header__button', { clearProps: 'transform' });
+            // gsap.set(`.${styles.button}`, { clearProps: 'transform' });
           }
         },"<")
 
@@ -54,6 +53,12 @@ export default function Header({
         }, "<50%");
     
   }, { scope: container });
+
+  function mouseEnterAnimation() {
+    contextSafe(() => {
+      gsap.to
+    });
+  }
 
   return (
     <header
@@ -74,7 +79,10 @@ export default function Header({
           </p>
         </div>
         <nav className={styles.header__nav}>
-          <Button className="header__button" variant="transparent" to="/">
+          <NavLink href="/" variant="transparent" >Works</NavLink>
+          <NavLink href="/gallery" variant="transparent" >Gallery</NavLink>
+          <NavLink href="/" variant="filled" >Contact</NavLink>
+          {/* <Button className="header__button" variant="transparent" to="/">
             Works
           </Button>
           <Button className="header__button" variant="transparent" to="/gallery">
@@ -82,7 +90,7 @@ export default function Header({
           </Button>
           <Button className="header__button" variant="filled" to="/">
             Contact
-          </Button>
+          </Button> */}
         </nav>
       </div>
     </header>
