@@ -1,1 +1,1 @@
-Repository of [`johnlexter.com/gallery`](https://johnlexter.com/gallery)
+Repository of [`johnlexter.com`](https://johnlexter.com) & [`johnlexter.com/gallery`](https://johnlexter.com/gallery)
